@@ -46,6 +46,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  otherwise语句执行
  </c:otherwise>
  </c:choose>
+	  
+<h1>out标签的使用</h1>
+  <%
+  request.setAttribute("username", "zhangsan");
+   %>
+    <c:out value="${3+4}"></c:out><br/>
+    <c:out value="${requestScope.username}"></c:out>
+     <c:out value="${param.username}" default="lisi"></c:out>
+    <h1>set标签的使用</h1>
+    <c:set value="${requestScope.username}" var="username"/>
+    <c:out value="${pageScope.username}"/>
+    <c:set value="${requestScope.username}" var="username1" scope="request"/>
+   使用remove标签 移除前：
+    <c:out value="${requestScope.username1}"/><br/>
+    <c:remove var="username1"/>
+       使用remove标签 移除后：
+    <c:out value="${requestScope.username1}"/><br/>
+    <%
+    User user=new User();
+    request.setAttribute("user", user);
+     %>
+    <c:set target="${user}" property="userName" value="wangwu"/>
+    <c:out value="${requestScope.user.userName}"/><br>
+      <h1>catch标签的使用</h1>
+      <c:catch var="error">
+      <% int i=9/0;
+      System.out.println("以下代码不会被执行！");
+      %>
+      </c:catch>
+      <c:out value="${error}"/><br>	  
+	  
+	  
  
   </body>
 </html>
